@@ -3,7 +3,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import LandingPage from "../utilComponents/landingPage";
+import LandingPage from "../components/landingPage";
 import { Box, Button, Grid, Image, Meter } from "grommet";
 import { Grommet } from "grommet";
 import type { NextPage } from "next";
@@ -12,8 +12,9 @@ import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-import { GetFileFromIpfs } from "~~/utilComponents/IPFSdeploy";
-import { Campaign, ExtendedCampaign } from "~~/utilComponents/campaignInterface";
+import { GetFileFromIpfs } from "~~/utils/IPFSdeploy";
+import { Campaign, ExtendedCampaign } from "~~/types/campaignInterface";
+import ProjectCard from "~~/components/ProjectCard";
 
 // Define the main component
 const UnifiedPage: NextPage = () => {
@@ -183,62 +184,3 @@ const UnifiedPage: NextPage = () => {
 };
 
 export default UnifiedPage; // Export the unified component
-
-interface ProjectCardProps {
-  campaign: ExtendedCampaign;
-}
-
-const ProjectCard: React.FC<ProjectCardProps> = ({ campaign }) => {
-  return (
-    <Box onClick={() => (window.location.href = `/clubs/${campaign.club}`)}>
-      {campaign && (
-        <Box
-          width={{ max: "medium" }}
-          border={{ color: "#a3e635", size: "medium" }}
-          round="medium"
-          pad="small"
-          margin={{ bottom: "medium" }}
-        >
-          <Box pad="small" align="center">
-            <Image src={`/42Hack/${campaign.club}.png`} fit="contain" />
-          </Box>
-          <Box align="center" pad="small">
-            <h1>{campaign.title}</h1>
-          </Box>
-          <Box pad={{ bottom: "medium", horizontal: "medium" }}>
-            <Meter
-              background="#cbd5e1"
-              color="#a3e635"
-              type="bar"
-              value={Number(campaign.currentAmount)}
-              max={Number(campaign.goalAmount)}
-            />
-            <Box direction="row" justify="between" pad="small" margin={{ top: "medium" }}>
-              <Box>
-                <h1>Raised:</h1>
-                <h1>${campaign.currentAmount.toString()}</h1>
-              </Box>
-              <Box>
-                <h1>Goal:</h1>
-                <h1>${campaign.goalAmount.toString()}</h1>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-      )}
-    </Box>
-  );
-};
-/* <h1>Main Page</h1>
-        {/* Navigation links *
-        <ul>
-          <li>
-            <Link href="/home">Home</Link>
-          </li>
-          {/* Dynamically render club links using map 
-          {clubs.map(club => (
-            <li key={club.id}>
-              <Link href={`/clubs/${club.id}`}>{`Club: ${club.name}`}</Link>
-            </li>
-          ))}
-        </ul> */

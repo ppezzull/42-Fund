@@ -21,3 +21,5 @@ export const GetFileFromIpfs = async (cid: string) => {
   const jsonData = JSON.parse(textData);
   return jsonData;
 };
+
+export default GetFileFromIpfs;
