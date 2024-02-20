@@ -5,7 +5,7 @@ import { Box, Grid, Image, Meter } from "grommet";
 import type { NextPage } from "next";
 import { Address } from "~~/components/scaffold-eth";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-import { GetFileFromIpfs }  from "~~/utils/IPFSdeploy";
+import { GetFileFromIpfs }  from "~~/utils/IPFS_Tools";
 import { Campaign, ExtendedCampaign } from "~~/types/campaignInterface";
 import ProjectCard from "~~/components/ProjectCard";
 

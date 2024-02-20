@@ -12,9 +12,11 @@ import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-import { GetFileFromIpfs } from "~~/utils/IPFSdeploy";
+import { GetFileFromIpfs } from "~~/utils/IPFS_Tools";
+import clubDescriptions from "~~/utils/clubDescriptions";
 import { Campaign, ExtendedCampaign } from "~~/types/campaignInterface";
 import ProjectCard from "~~/components/ProjectCard";
+import ClubImage from "~~/components/ClubImage";
 
 // Define the main component
 const UnifiedPage: NextPage = () => {
@@ -79,69 +81,8 @@ const UnifiedPage: NextPage = () => {
               <h1 className="text-xl text-black">OUR CLUBS</h1>
             </Box>
             <Box width={{ max: "100%" }} pad="medium">
-              <Grid columns={{ count: "fill", size: "xsmall" }} gap="medium" fill="horizontal">
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42BDE.png"
-                  onClick={() => {
-                    window.location.href = "/clubs/42BDE"; // Redirect to the desired URL
-                  }}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42activities.png"
-                  onClick={() => (window.location.href = "/clubs/42activities")}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42book.png"
-                  onClick={() => (window.location.href = "/clubs/42book")}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42ciak.png"
-                  onClick={() => (window.location.href = "/clubs/42ciak")}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42cybersecurity.png"
-                  onClick={() => (window.location.href = "/clubs/42cybersecurity")}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42freelance.png"
-                  onClick={() => (window.location.href = "/clubs/42freelance")}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42gaming.png"
-                  onClick={() => (window.location.href = "/clubs/42gaming")}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42music.png"
-                  onClick={() => (window.location.href = "/clubs/42music")}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42pingpong.png"
-                  onClick={() => (window.location.href = "/clubs/42pingpong")}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42spaghetti.png"
-                  onClick={() => (window.location.href = "/clubs/42spaghetti")}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42startup.png"
-                  onClick={() => (window.location.href = "/clubs/42startup")}
-                />
-                <Image
-                  className="rounded-full"
-                  src="42Hack/42talk.png"
-                  onClick={() => (window.location.href = "/clubs/42talk")}
-                />
+              <Grid columns={{ count: "fill", size: "xsmall" }} gap="medium" fill="vertical">
+                {Object.keys(clubDescriptions).map((club) => <ClubImage club={club}/>)}
               </Grid>
             </Box>
           </Box>

@@ -16,7 +16,7 @@ export const Footer = () => {
   });
 
   const [usdt, setUsdt] = useState("");
-  const [token42, setToken42] = useState("");
+  const [token42, setToken] = useState("");
   const account = useAccount();
 
   const { data: amount } = useScaffoldContractRead({

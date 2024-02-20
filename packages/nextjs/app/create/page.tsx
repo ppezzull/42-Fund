@@ -7,8 +7,9 @@ import type { NextPage } from "next";
 import { set } from "nprogress";
 import { InputBase, IntegerInput } from "~~/components/scaffold-eth";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-import { UploadJsonToIPFS } from "~~/utilComponents/IPFSdeploy";
+import { UploadJsonToIPFS } from "~~/utils/IPFS_Tools";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
+import clubDescriptions from "~~/utils/clubDescriptions";
 
 const Create: NextPage = () => {
   //const { write: createCampaign } = useContractWrite();
@@ -117,7 +118,16 @@ const Create: NextPage = () => {
           </Box>
           <Box align="start">
             <h1>Club Name</h1>
-            <InputBase name="club" value={club} onChange={setClub} />
+            <select value={club} onChange={e => setClub(e.target.value)}>
+              <option value="" disabled>
+                Select a Club
+              </option>
+              {Object.keys(clubDescriptions).map(clubKey => (
+                <option key={clubKey} value={clubKey}>
+                  {clubKey}
+                </option>
+              ))}
+            </select>
           </Box>
           <Box align="start">
             <h1>Timelock</h1>

@@ -7,7 +7,7 @@ import type { NextPage } from "next";
 import { InputBase } from "~~/components/scaffold-eth";
 import deployedContracts from "~~/contracts/deployedContracts";
 import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-import { GetFileFromIpfs } from "~~/utils/IPFSdeploy";
+import { GetFileFromIpfs } from "~~/utils/IPFS_Tools";
 import { ExtendedCampaign, Campaign } from "~~/types/campaignInterface";
 
 interface CampaignBoxProps {
