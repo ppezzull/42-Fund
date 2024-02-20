@@ -42,22 +42,29 @@ const Projects: NextPage = () => {
 
     fetchData();
   }, [campaigns]);
+
   return (
     <Box margin="large">
       <Box margin="medium">
         <h1 className="text-3xl">Discover Projects</h1>
       </Box>
-      <Grid columns={{ size: "medium" }} gap="small">
-        {campaigns && campaigns.length > 0 ? (
-          campaigns.map((campaign: Campaign, index: number) => (
-            <Box>
-              <ProjectCard campaign={campaignsAll[index]} />
-            </Box>
-          ))
-        ) : (
-          <h1>No campaigns yet.</h1>
-        )}
-      </Grid>
+      {loading ? (
+        <Box align="center">
+          <h1>Loading...</h1>
+        </Box>
+      ) : (
+        <Grid columns={{ size: "medium" }} gap="small">
+          {campaigns && campaigns.length > 0 ? (
+            campaigns.map((campaign: Campaign, index: number) => (
+              <Box key={index}>
+                <ProjectCard campaign={campaignsAll[index]} />
+              </Box>
+            ))
+          ) : (
+            <h1>No campaigns yet.</h1>
+          )}
+        </Grid>
+      )}
     </Box>
   );
 };

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Box, Button } from "grommet";
 import { useAccount } from "wagmi";
 import { HeartIcon } from "@heroicons/react/24/outline";
-import { BuidlGuidlLogo } from "~~/components/assets/BuidlGuidlLogo";
 import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const Footer = () => {
@@ -15,28 +14,6 @@ export const Footer = () => {
     },
   });
 
-  const [usdt, setUsdt] = useState("");
-  const [token42, setToken] = useState("");
-  const account = useAccount();
-
-  const { data: amount } = useScaffoldContractRead({
-    contractName: "StableCoin",
-    functionName: "balanceOf",
-    args: [account.address],
-  });
-
-  const { data: token } = useScaffoldContractRead({
-    contractName: "Fundraising",
-    functionName: "getFundToken",
-    args: [account.address],
-  });
-
-  useEffect(() => {
-    if (amount) {
-      setToken(amount.toString());
-    }
-  }, [amount, token]);
-
   return (
     <div className="min-h-0 py-5 px-1 mb-11 lg:mb-0">
       <div>
@@ -44,11 +21,6 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row gap-2 pointer-events-auto">
             <div>
               <Button size="medium" primary color="#a3e635" label="💸 Get USDT" onClick={() => writeAsync()} />
-              {token42 && (
-                <Box border={{ color: "#a3e635", size: "small" }} round="medium" pad="small">
-                  <h1>42Token Balance ${token42}</h1>
-                </Box>
-              )}
             </div>
           </div>
         </div>

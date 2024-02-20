@@ -19,7 +19,6 @@ const Create: NextPage = () => {
   const [club, setClub] = useState("");
   const [goalAmount, setGoalAmount] = useState("");
   const [timelock, setTimelock] = useState<bigint>(0n);
-  const [timelockDate, setTimelockDate] = useState("");
   const [ipfsHash, setIpfsHash] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);

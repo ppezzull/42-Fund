@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Box } from "grommet";
 import { useAccount } from "wagmi";
-import { getAccount } from "wagmi/dist/actions";
 import { Bars3Icon, BugAntIcon, MagnifyingGlassIcon, StarIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+
 
 type HeaderMenuLink = {
   label: string;
@@ -75,11 +75,19 @@ export const Header = () => {
   const burgerMenuRef = useRef<HTMLDivElement>(null);
   const account = useAccount();
 
-  /*   const { data: amount } = useScaffoldContractRead({
+  const [token42, setToken42] = useState<BigInt>(BigInt(0));
+
+  const { data: amount } = useScaffoldContractRead({
     contractName: "Fundraising",
     functionName: "getFundToken",
     args: [account.address],
-  }); */
+  });
+
+  useEffect(() => {
+    if (amount) {
+      setToken42(BigInt(amount));
+    }
+  }, [amount]);
 
   useOutsideClick(
     burgerMenuRef,
@@ -117,19 +125,16 @@ export const Header = () => {
           </div>
           <div className="flex flex-col">
             <span className="font-lighter leading-tight">42 Care</span>
-            {/*             <span className="text-xs">Ethereum dev se ci va</span>
-             */}{" "}
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">
           <HeaderMenuLinks />
         </ul>
       </div>
-      <div className="navbar-end flex-grow flex items-center">
-        {/* <div>: {amount !== undefined ? String(amount) : "0"}</div> */}
-        <div className="mr-4">
-          <RainbowKitCustomConnectButton />
-        </div>
+      <div className="navbar-end flex-grow mr-4 items-center">
+        <h1 className="mr-4 mb-0">42Token Balance: {token42.toString()}</h1>
+        <RainbowKitCustomConnectButton />
+        <FaucetButton />
       </div>
     </div>
   );

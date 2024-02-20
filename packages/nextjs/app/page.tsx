@@ -61,9 +61,9 @@ const UnifiedPage: NextPage = () => {
   // Render the main component
 
   return (
-    <Grommet full>
+    <Grommet>
       <Box background="#a3e635" height="auto" width="100%">
-        <Box margin="large" fill width={{ max: "90%" }} align="center">
+        <Box margin="large" width={{ max: "100%" }} align="center">
           <Grid columns={["2/3", "1/3"]} margin="small" gap="medium">
             <Box width={{ max: "xlarge" }} gap="medium" margin={{ top: "medium" }} align="start">
               <h1 className="text-3xl font-bold text-black text-left ">Empowering greatness, made easy.</h1>
@@ -76,7 +76,7 @@ const UnifiedPage: NextPage = () => {
               <Image className="max-w-full" src="42Hack/handHeart.png" />
             </Box>
           </Grid>
-          <Box>
+          <Box margin="medium">
             <Box align="center">
               <h1 className="text-xl text-black">OUR CLUBS</h1>
             </Box>
