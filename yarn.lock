@@ -19135,6 +19135,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "se-2@workspace:."
   dependencies:
+    ethers: ^6.11.1
     husky: ^8.0.1
     ipfs: ^0.66.1
     ipfs-http-client: ^60.0.1

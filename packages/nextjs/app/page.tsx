@@ -2,24 +2,17 @@
 
 import React from "react";
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import LandingPage from "../components/landingPage";
-import { Box, Button, Grid, Image, Meter } from "grommet";
+import { Box, Button, Grid, Image } from "grommet";
 import { Grommet } from "grommet";
 import type { NextPage } from "next";
-import { set } from "nprogress";
-import { useAccount } from "wagmi";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Address } from "~~/components/scaffold-eth";
+import ClubImage from "~~/components/ClubImage";
+import ProjectCard from "~~/components/ProjectCard";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { Campaign, ExtendedCampaign } from "~~/types/campaignInterface";
 import { GetFileFromIpfs } from "~~/utils/IPFS_Tools";
 import clubDescriptions from "~~/utils/clubDescriptions";
-import { Campaign, ExtendedCampaign } from "~~/types/campaignInterface";
-import ProjectCard from "~~/components/ProjectCard";
-import ClubImage from "~~/components/ClubImage";
 
-// Define the main component
-const UnifiedPage: NextPage = () => {
+const HomePage: NextPage = () => {
   const [topCampaigns, setTopCampaigns] = useState<ExtendedCampaign[]>([]);
 
   const { data: campaigns } = useScaffoldContractRead({
@@ -66,8 +59,8 @@ const UnifiedPage: NextPage = () => {
         <Box margin="large" width={{ max: "100%" }} align="center">
           <Grid columns={["2/3", "1/3"]} margin="small" gap="medium">
             <Box width={{ max: "xlarge" }} gap="medium" margin={{ top: "medium" }} align="start">
-              <h1 className="text-3xl font-bold text-black text-left ">Empowering greatness, made easy.</h1>
-              <h1 className="text-black leading-relaxed max-w-2xl text-left">
+              <h1 className="text-4xl font-bold text-black text-left ">Empowering greatness, made easy.</h1>
+              <h1 className="text-xl-black leading-relaxed max-w-2xl text-left">
                 Support your community projects! Invest now and receive 42 tokens to access exclusive campus benefits.
                 Get involved and make a difference today!
               </h1>
@@ -76,13 +69,15 @@ const UnifiedPage: NextPage = () => {
               <Image className="max-w-full" src="42Hack/handHeart.png" />
             </Box>
           </Grid>
-          <Box margin="medium">
-            <Box align="center">
-              <h1 className="text-xl text-black">OUR CLUBS</h1>
+          <Box margin="medium" align="center">
+            <Box>
+              <h1 className="text-2xl text-black">OUR CLUBS</h1>
             </Box>
-            <Box width={{ max: "100%" }} pad="medium">
-              <Grid columns={{ count: "fill", size: "xsmall" }} gap="medium" fill="vertical">
-                {Object.keys(clubDescriptions).map((club) => <ClubImage club={club}/>)}
+            <Box width={{ max: "65%" }} pad="medium">
+              <Grid columns={{ count: 6, size: "small" }} gap="medium" fill="vertical">
+                {Object.keys(clubDescriptions).map(club => (
+                  <ClubImage club={club} />
+                ))}
               </Grid>
             </Box>
           </Box>
@@ -124,4 +119,4 @@ const UnifiedPage: NextPage = () => {
   );
 };
 
-export default UnifiedPage; // Export the unified component
+export default HomePage; // Export the unified component

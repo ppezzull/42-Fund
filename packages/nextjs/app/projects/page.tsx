@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Grid, Image, Meter } from "grommet";
+import { Box, Grid } from "grommet";
 import type { NextPage } from "next";
-import { Address } from "~~/components/scaffold-eth";
-import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-import { GetFileFromIpfs }  from "~~/utils/IPFS_Tools";
-import { Campaign, ExtendedCampaign } from "~~/types/campaignInterface";
 import ProjectCard from "~~/components/ProjectCard";
-
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { Campaign, ExtendedCampaign } from "~~/types/campaignInterface";
+import { GetFileFromIpfs } from "~~/utils/IPFS_Tools";
+import clubDescriptions from "~~/utils/clubDescriptions";
 
 const Projects: NextPage = () => {
   const { data: campaigns } = useScaffoldContractRead({
@@ -34,8 +33,13 @@ const Projects: NextPage = () => {
             allCampaigns.push(extendedCampaign);
           }
         }
-        console.log("allcampaigns with thitle", allCampaigns);
-        setCampaignsAll(allCampaigns);
+        // Filter campaigns based on the club
+        const filteredCampaigns = allCampaigns.filter(campaign =>
+          Object.keys(clubDescriptions).includes(campaign.club),
+        );
+
+        console.log("filtered campaigns with title", filteredCampaigns);
+        setCampaignsAll(filteredCampaigns);
         setLoading(false);
       }
     };

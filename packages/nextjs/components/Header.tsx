@@ -1,16 +1,14 @@
 "use client";
 
-import React, { useCallback, useRef, useState, useEffect } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Box } from "grommet";
 import { useAccount } from "wagmi";
-import { Bars3Icon, BugAntIcon, MagnifyingGlassIcon, StarIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BugAntIcon, StarIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-
 
 type HeaderMenuLink = {
   label: string;
@@ -19,12 +17,12 @@ type HeaderMenuLink = {
 };
 
 export const menuLinks: HeaderMenuLink[] = [
-  /*  {
+  {
     label: "Debug",
     href: "/debug",
     icon: <BugAntIcon className="h-4 w-4" />,
   },
-  {
+  /*  {
     label: "Subgraph",
     href: "/subgraph",
     icon: <MagnifyingGlassIcon className="h-4 w-4" />,
@@ -74,8 +72,7 @@ export const Header = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
   const account = useAccount();
-
-  const [token42, setToken42] = useState<BigInt>(BigInt(0));
+  const [token42, setToken42] = useState<bigint>(BigInt(0));
 
   const { data: amount } = useScaffoldContractRead({
     contractName: "Fundraising",

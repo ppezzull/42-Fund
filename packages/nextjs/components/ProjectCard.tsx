@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, Meter, Image } from "grommet";
+import { Box, Image, Meter } from "grommet";
 import { ExtendedCampaign } from "~~/types/campaignInterface";
-
+import { weiToEth } from "~~/utils/convertEth";
 
 interface ProjectCardProps {
   campaign: ExtendedCampaign;
@@ -35,11 +35,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ campaign }) => {
             <Box direction="row" justify="between" pad="small" margin={{ top: "medium" }}>
               <Box>
                 <h1>Raised:</h1>
-                <h1>${campaign.currentAmount.toString()}</h1>
+                <h1>${weiToEth(campaign.currentAmount)}</h1>
               </Box>
               <Box>
                 <h1>Goal:</h1>
-                <h1>${campaign.goalAmount.toString()}</h1>
+                <h1>${weiToEth(campaign.goalAmount)}</h1>
               </Box>
             </Box>
           </Box>

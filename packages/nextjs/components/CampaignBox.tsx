@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Box, Button, Grid, Image, Meter, ResponsiveContext } from "grommet";
 import type { NextPage } from "next";
-import { InputBase } from "~~/components/scaffold-eth";
+import { InputBase } from "~~/components/scaffold-eth/Input";
 import deployedContracts from "~~/contracts/deployedContracts";
-import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-import { GetFileFromIpfs } from "~~/utils/IPFS_Tools";
-import { ExtendedCampaign, Campaign } from "~~/types/campaignInterface";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { Campaign, ExtendedCampaign } from "~~/types/campaignInterface";
+import { weiToEth } from "~~/utils/convertEth";
 
 interface CampaignBoxProps {
   index: number;
@@ -23,7 +23,7 @@ const CampaignBox: React.FC<CampaignBoxProps> = ({ index, campaign }) => {
   const { writeAsync: approve } = useScaffoldContractWrite({
     contractName: "StableCoin",
     functionName: "approve",
-    args: [fundRaisingAddress, BigInt(Math.pow(Number(amount), 18))],
+    args: [fundRaisingAddress, BigInt(amount)],
     onBlockConfirmation: txnReceipt => {
       console.log("📦 Transaction blockHash", txnReceipt.blockHash);
     },
@@ -55,7 +55,7 @@ const CampaignBox: React.FC<CampaignBoxProps> = ({ index, campaign }) => {
             <h1 className="text-black">{campaign.description}</h1>
           </Box>
         </Box>
-        <Box align="end" justify="center" margin={{ top: "medium", }}>
+        <Box align="end" justify="center" margin={{ top: "medium" }}>
           <Box
             background="white"
             width={{ max: "medium" }}
@@ -79,11 +79,11 @@ const CampaignBox: React.FC<CampaignBoxProps> = ({ index, campaign }) => {
               <Box direction="row" justify="between" pad="small" margin={{ top: "medium" }}>
                 <Box>
                   <h1>Raised:</h1>
-                  <h1>${campaign.currentAmount.toString()}</h1>
+                  <h1>${weiToEth(campaign.currentAmount)}</h1>
                 </Box>
                 <Box>
                   <h1>Goal:</h1>
-                  <h1>${campaign.goalAmount.toString()}</h1>
+                  <h1>${weiToEth(campaign.goalAmount)}</h1>
                 </Box>
               </Box>
             </Box>

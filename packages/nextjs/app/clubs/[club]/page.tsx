@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Box, Grid, Image, Meter, ResponsiveContext } from "grommet";
+import { Box, Grid, Image, ResponsiveContext } from "grommet";
 import type { NextPage } from "next";
 import CampaignBox from "~~/components/CampaignBox";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { Campaign, ExtendedCampaign } from "~~/types/campaignInterface";
 import { GetFileFromIpfs } from "~~/utils/IPFS_Tools";
-import { ExtendedCampaign, Campaign } from "~~/types/campaignInterface";
 import clubDescriptions from "~~/utils/clubDescriptions";
 
 const ClubPage: NextPage = () => {
@@ -57,12 +57,7 @@ const ClubPage: NextPage = () => {
       <Box width="full" height="auto" background="#a3e635" direction="row" align="start">
         <Box pad="medium">
           <Box>
-            <Image 
-              src={`/42Hack/${club}.png`} 
-              fit="contain" 
-              width="30%" 
-              style={{ borderRadius: 30 }}
-              />
+            <Image src={`/42Hack/${club}.png`} fit="contain" width="30%" style={{ borderRadius: 30 }} />
           </Box>
         </Box>
         <Box width={{ max: "50%" }} gap="medium" pad="medium">
@@ -90,4 +85,3 @@ const ClubPage: NextPage = () => {
 };
 
 export default ClubPage;
-
