@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 import { Box, Button, Grid, Image, Meter, ResponsiveContext } from "grommet";
-import type { NextPage } from "next";
-import { InputBase } from "~~/components/scaffold-eth/Input";
+import { InputBase, IntegerInput } from "~~/components/scaffold-eth";
 import deployedContracts from "~~/contracts/deployedContracts";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-import { Campaign, ExtendedCampaign } from "~~/types/campaignInterface";
-import { weiToEth } from "~~/utils/convertEth";
+import { ExtendedCampaign } from "~~/types/campaignInterface";
+import { ethToWei, weiToEth } from "~~/utils/convertEth";
 
 interface CampaignBoxProps {
   index: number;
@@ -23,7 +21,7 @@ const CampaignBox: React.FC<CampaignBoxProps> = ({ index, campaign }) => {
   const { writeAsync: approve } = useScaffoldContractWrite({
     contractName: "StableCoin",
     functionName: "approve",
-    args: [fundRaisingAddress, BigInt(amount)],
+    args: [fundRaisingAddress, BigInt(Math.pow(Number(amount), 18))],
     onBlockConfirmation: txnReceipt => {
       console.log("📦 Transaction blockHash", txnReceipt.blockHash);
     },
@@ -32,15 +30,20 @@ const CampaignBox: React.FC<CampaignBoxProps> = ({ index, campaign }) => {
   const { writeAsync: contributeFr } = useScaffoldContractWrite({
     contractName: "Fundraising",
     functionName: "contribute",
-    args: [BigInt(index), BigInt(amount)],
+    args: [BigInt(index), ethToWei(amount)],
     onBlockConfirmation: txnReceipt => {
       console.log("📦 Transaction blockHash", txnReceipt.blockHash);
     },
   });
 
   return (
-    <Box pad="large" margin={{ horizontal: "medium" }} height="100%">
-      <Box direction="row" background="#D9D9D9" justify="between" round="medium" width="900px" height="full">
+    <Box pad="large" margin={{ horizontal: "medium" }} height="100%" width="900px">
+      <Grid
+        columns={['auto', 'medium']}
+        gap="medium"
+        width="900px"
+        height="full"
+      >
         <Box
           align="start"
           justify="start"
@@ -51,7 +54,7 @@ const CampaignBox: React.FC<CampaignBoxProps> = ({ index, campaign }) => {
           <Box>
             <h1 className="text-xl text-black">About the project</h1>
           </Box>
-          <Box>
+          <Box flex="grow">
             <h1 className="text-black">{campaign.description}</h1>
           </Box>
         </Box>
@@ -63,7 +66,7 @@ const CampaignBox: React.FC<CampaignBoxProps> = ({ index, campaign }) => {
             round="medium"
             pad="small"
             margin={{ vertical: "medium", right: "large" }}
-            height="full" // Set height to 'full'
+            height="full"
           >
             <Box align="center" pad="small" margin={{ top: "medium" }}>
               <h1>{campaign.title}</h1>
@@ -91,7 +94,7 @@ const CampaignBox: React.FC<CampaignBoxProps> = ({ index, campaign }) => {
               <>
                 <Box pad="small" align="center">
                   <h1 className="text-small ">Contribution amount in $</h1>
-                  <InputBase name="Enter amount" value={amount} onChange={setAmount} />
+                  <IntegerInput name="Enter amount" value={amount} onChange={e => setAmount(e)} />
                   <h1 className="text-xsmall leading-3 mt-2 ">
                     You will get 20% of your contribution back in T42 tokens
                   </h1>
@@ -109,8 +112,8 @@ const CampaignBox: React.FC<CampaignBoxProps> = ({ index, campaign }) => {
               </>
             )}
           </Box>
-        </Box>
-      </Box>
+          </Box>
+      </Grid>
     </Box>
   );
 };

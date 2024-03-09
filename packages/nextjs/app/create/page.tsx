@@ -96,16 +96,7 @@ const Create: NextPage = () => {
           <h1 className="text-xl">KICK-OFF YOUR CAMPAIGN</h1>
         </Box>
         <Box gap="medium" margin={{ horizontal: "medium", vertical: "small" }} align="start">
-          <Box align="start">
-            <h1>Project Title</h1>
-            <InputBase name="title" value={title} onChange={setTitle} />
-          </Box>
-          <Box align="start">
-            <h1>Goal Amount in $</h1>
-            <InputBase name="goalAmount" value={goalAmount} onChange={setGoalAmount} />
-            {error && <p className="text-red-600">Please enter a valid number</p>}
-          </Box>
-          <Box align="start">
+        <Box align="start">
             <h1>Club Name</h1>
             <select
               value={club}
@@ -130,6 +121,15 @@ const Create: NextPage = () => {
                 </option>
               ))}
             </select>
+          </Box>
+          <Box align="start">
+            <h1>Project Title</h1>
+            <InputBase name="title" value={title} onChange={setTitle} />
+          </Box>
+          <Box align="start">
+            <h1>Goal Amount in $</h1>
+            <InputBase name="goalAmount" value={goalAmount} onChange={setGoalAmount} />
+            {error && <p className="text-red-600">Please enter a valid number</p>}
           </Box>
           <Box align="start">
             <h1>Timelock</h1>

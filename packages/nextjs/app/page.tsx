@@ -74,7 +74,7 @@ const HomePage: NextPage = () => {
               <h1 className="text-2xl text-black">OUR CLUBS</h1>
             </Box>
             <Box width={{ max: "65%" }} pad="medium">
-              <Grid columns={{ count: 6, size: "small" }} gap="medium" fill="vertical">
+              <Grid columns={{ count: 6, size: "xsmall" }} gap="medium" fill="vertical">
                 {Object.keys(clubDescriptions).map(club => (
                   <ClubImage club={club} />
                 ))}

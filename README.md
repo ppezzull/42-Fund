@@ -1,7 +1,7 @@
 # urbeHacks
 urbe.eth Hackaton
 
-Together with out team , we built a Fundraising dApp designed specifically tailored for the programming school 42, that hosted the hackaton. 
+Together with out team , we built a Fundraising dApp specifically tailored for the programming school 42, that hosted the hackaton. 
 
 The app we built is called 42Care. 
 In our vision scholastic clubs are foundamental for the 42school community, and with our platform we try to support the necessities of the students via the clubs and the environment they experience daily. 

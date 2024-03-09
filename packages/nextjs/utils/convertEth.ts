@@ -1,10 +1,11 @@
-// Function to convert Ether to Wei
-export const ethToWei = (eth: string): bigint => {
-  const weiString = (parseFloat(eth) * 1e18).toString();
-  return BigInt(weiString);
+// Function to convert Ether to Wei as BigInt
+export const ethToWei = (eth: string | bigint): bigint => {
+  const ethValue = typeof eth === 'string' ? BigInt(eth) : eth;
+  return ethValue * BigInt(1e18) as bigint;
 };
 
-// Function to convert Wei to Ether
-export const weiToEth = (wei: bigint): string => {
-  return (parseFloat(wei.toString()) / 1e18).toString();
+// Function to convert Wei to Ether as BigInt
+export const weiToEth = (wei: string | bigint): bigint => {
+  const weiValue = typeof wei === 'string' ? BigInt(wei) : wei;
+  return weiValue / BigInt(1e18) as bigint;
 };
